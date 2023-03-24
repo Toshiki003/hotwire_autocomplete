@@ -5,6 +5,15 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
   end
+  
+  def search
+    @movies = Movie.where("title LIKE ?", "%#{params[:title_search]}%")
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update("search_results", @movies.count)
+      end
+    end
+  end
 
   # GET /movies/1 or /movies/1.json
   def show
