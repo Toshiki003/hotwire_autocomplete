@@ -6,6 +6,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 150.times do
-  Faker::Movie.unique.title
+  Movie.create(title: Faker::Movie.unique.title)
 end
 puts "150 movies created"
