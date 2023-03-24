@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     @movies = Movie.where("title LIKE ?", "%#{params[:title_search]}%")
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.update("search_results", @movies.count)
+        render turbo_stream: turbo_stream.update("search_results", partial: "movies/search_results", locals: { movies: @movies })
       end
     end
   end
